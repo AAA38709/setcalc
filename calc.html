@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SetCalc 爆分計算器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 480px;
+      margin: auto;
+      background-color: #f7f7f7;
+    }
+    h1 {
+      text-align: center;
+      color: #2d862d;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #2d862d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    .result {
+      margin-top: 25px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .suggest {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>SetCalc 爆分計算器</h1>
+
+  <label for="base">本金</label>
+  <input type="number" id="base" placeholder="例如 1000" />
+
+  <label for="unit">每轉金額（元）</label>
+  <input type="number" id="unit" placeholder="例如 3" />
+
+  <label for="turns">轉數</label>
+  <input type="number" id="turns" placeholder="例如 50" />
+
+  <label for="score">得分</label>
+  <input type="number" id="score" placeholder="例如 210" />
+
+  <button onclick="calculate()">計算回收率</button>
+
+  <div class="result" id="result" style="display:none;">
+    <div>下注總額：<span id="cost"></span> 元</div>
+    <div>回收率：<span id="roi"></span> %</div>
+    <div class="suggest" id="suggestion"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const base = parseFloat(document.getElementById("base").value);
+      const unit = parseFloat(document.getElementById("unit").value);
+      const turns = parseFloat(document.getElementById("turns").value);
+      const score = parseFloat(document.getElementById("score").value);
+
+      if (isNaN(unit) || isNaN(turns) || isNaN(score)) {
+        alert("請輸入所有欄位");
+        return;
+      }
+
+      const cost = unit * turns;
+      const roi = ((score / cost) * 100).toFixed(1);
+      let suggestion = "";
+
+      if (roi >= 90) {
+        suggestion = "🔥 高回收！建議升壓或爆點進場";
+      } else if (roi >= 70) {
+        suggestion = "✅ 穩定區間，可考慮續壓或小爆點";
+      } else if (roi >= 50) {
+        suggestion = "⚠️ 中低回收，建議觀察一輪再進";
+      } else {
+        suggestion = "❌ 回收差，建議換房或降壓";
+      }
+
+      document.getElementById("cost").textContent = cost + " 元";
+      document.getElementById("roi").textContent = roi + " %";
+      document.getElementById("suggestion").textContent = suggestion;
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+</body>
+</html>
