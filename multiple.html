@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>戰神塞特 | 下注比例倍數試算機</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #eef6ff;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    label {
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0 16px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    .result {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .emoji {
+      font-size: 18px;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>戰神塞特｜下注比例倍數試算機</h2>
+    <label for="inputAmount">請輸入今日下注金額（元）：</label>
+    <input id="inputAmount" type="number" placeholder="例如：10000" />
+    <div class="result" id="result">
+      <p class="emoji">👉 請輸入下注金額</p>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById("inputAmount");
+    const result = document.getElementById("result");
+
+    input.addEventListener("input", () => {
+      const value = Number(input.value);
+      if (value > 0) {
+        result.innerHTML = `
+          <p class="emoji">📌 5 倍（觀察點）：${value * 5} 元</p>
+          <p class="emoji">📌 7 倍（進場建議）：${value * 7} 元</p>
+          <p class="emoji">📌 10 倍（蓄壓爆分）：${value * 10} 元</p>
+        `;
+      } else {
+        result.innerHTML = `<p class="emoji">👉 請輸入下注金額</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
